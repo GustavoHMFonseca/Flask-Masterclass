@@ -7,6 +7,10 @@ def index():
     
     return "<a href = '/posts'>Posts</a>"
 
+@app.route("/response")
+def response():    
+    return "Uma resposta do servidor"
+
 @app.route("/posts")
 @app.route("/posts/<int:id>")
 def posts(id):
