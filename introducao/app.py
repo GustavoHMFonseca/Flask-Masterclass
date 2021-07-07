@@ -1,11 +1,14 @@
-from flask import Flask,request
+from flask import Flask,request,redirect, url_for
 
 app = Flask(__name__)
 
 @app.route("/")
-def index():
-    
+def index():    
     return "<a href = '/posts'>Posts</a>"
+
+@app.route("/redirect")
+def redirect2():    
+    return redirect(url_for("response"))
 
 @app.route("/response")
 def response():    
