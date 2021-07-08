@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -20,7 +20,8 @@ class User(db.Model):
 
 @app.route("/")
 def index():
-    return"Página em branco"
+    users = User.query.all()# select * from users;
+    return render_template("user.html", users=users)
 
     
 if __name__ == "__main__":
