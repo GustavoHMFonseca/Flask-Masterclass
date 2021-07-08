@@ -1,6 +1,6 @@
-from flask import Flask,render_template,redirect
+from flask import Flask,render_template,redirect,request,url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_manager
+from flask_login import LoginManager, UserMixin, login_manager,login_required
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
@@ -42,6 +42,7 @@ def index():
     return render_template("users.html", users=users)
 
 @app.route("/user/<int:id>")
+@login_required
 def unique(id):
     user = User.query.get(id)
     return render_template("user.html",user=user)
@@ -57,6 +58,16 @@ def delete(id):
 
 @app.route("/register", methods=["GET","POST"])
 def register():
+    if request.method == "POST":
+        user = User()
+        user.name = request.form["name"]
+        user.email = request.form["email"]
+        user.password = request.form["password"]
+
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("index"))
+
     return render_template("register.html")
 
 @app.route("/login", methods=["GET","POST"])
@@ -64,6 +75,6 @@ def login():
     return render_template("login.html")
 
     
-    
+
 if __name__ == "__main__":
     app.run(debug = True)
