@@ -1,8 +1,11 @@
-from flask import Flask,render_template,redirect,request,url_for
+from flask import Flask,render_template,redirect,request,url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_manager,login_required
+from flask_login import LoginManager, UserMixin, login_manager,login_required,login_user
+from werkzeug.security import generate_password_hash,check_password_hash
+
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = 'secret'
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -62,7 +65,7 @@ def register():
         user = User()
         user.name = request.form["name"]
         user.email = request.form["email"]
-        user.password = request.form["password"]
+        user.password = generate_password_hash(request.form["password"])
 
         db.session.add(user)
         db.session.commit()
@@ -72,6 +75,24 @@ def register():
 
 @app.route("/login", methods=["GET","POST"])
 def login():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+
+        user = User.query.filter_by(email=email).first()
+       
+        
+        if not user:
+            flash("Usuário incorreto")
+            return redirect(url_for("login"))
+
+        if not check_password_hash(user.password, password):
+            flash("Senha incorreta")
+            return redirect(url_for("login"))
+
+        login_user(user)
+        return redirect(url_for("index"))
+
     return render_template("login.html")
 
     
