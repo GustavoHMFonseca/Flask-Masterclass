@@ -1,19 +1,26 @@
 from flask import Flask,render_template,redirect
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_manager
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
+login_manager = LoginManager(app)
 
-class User(db.Model):
+@login_manager.user_loader
+def current_user(user_id):
+    return User.query.get(user_id)
+
+class User(db.Model, UserMixin):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(84),nullable=False)
     email = db.Column(db.String(84),nullable=False, unique=True, index=True)
     password = db.Column(db.String(255),nullable=False)
     profile = db.relationship('Profile', backref='user',uselist=False)
+
 
     def __str__(self):
         return self.name
@@ -47,6 +54,16 @@ def delete(id):
 
     return redirect("/")
 
+
+@app.route("/register", methods=["GET","POST"])
+def register():
+    return render_template("register.html")
+
+@app.route("/login", methods=["GET","POST"])
+def login():
+    return render_template("login.html")
+
+    
     
 if __name__ == "__main__":
     app.run(debug = True)
