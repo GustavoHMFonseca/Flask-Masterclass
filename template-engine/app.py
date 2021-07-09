@@ -17,7 +17,7 @@ def templates():
 
     return render_template("index.html",users=users)
 
-@app.route("/users")
+@app.route("/usuarios")
 def users():
     flash("Users routes")
     return render_template("users.html")
