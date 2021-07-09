@@ -6,12 +6,10 @@ app.config["SECRET_KEY"] = "secret"
 
 @app.route("/templates")
 def templates():
-    
 
-    flash("Usuário criado com sucesso!")
-    flash("passei por aqui.")
+    user_page = True     
 
-    return render_template("index.html")
+    return render_template("index.html",user_page=user_page)
 
 @app.route("/usuarios")
 def users():

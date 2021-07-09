@@ -7,6 +7,13 @@
 
 {%block conteudo%}
     {%include 'components/notification.html'%}
-    <a href="{{ url_for('users') }}" class="lead">Usuarios</a>   
+    {%if user_page%}
+        <a href="{{ url_for('users') }}" class="lead">Usuarios</a>   
+    {%else%}
+        <p class="text-center">
+            Nenhum usuário encontrado!
+        </p>
+    {%endif%}
+
 {%endblock%}
 
