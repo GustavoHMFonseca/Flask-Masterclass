@@ -1,4 +1,4 @@
-{%extends "base.html"%}
+{% extends "base.html"%}
 
 {%block conteudo%}
     {% with messages = get_flashed_messages() %}
@@ -8,9 +8,4 @@
             {% endfor %}
         {%endif%}
     {% endwith %}
-
-    {% for k,v in users.items() %}
-        <h1>{{k}} => {{v}}</h1>
-    {% endfor%}
-{%endblock%}
-
+{% endblock %}

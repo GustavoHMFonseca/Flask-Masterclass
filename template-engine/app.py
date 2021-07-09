@@ -14,8 +14,13 @@ def templates():
 
     flash("Usuário criado com sucesso!")
     flash("passei por aqui.")
-    
+
     return render_template("index.html",users=users)
+
+@app.route("/users")
+def users():
+    flash("Users routes")
+    return render_template("users.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
