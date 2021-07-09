@@ -16,7 +16,7 @@ def templates():
 
 @app.route("/usuarios")
 def users():
-    flash("Users routes")
+    flash("Users routes", category="success")
     users = [{
         "name": "Lucas Silva",
         "age": 99,
