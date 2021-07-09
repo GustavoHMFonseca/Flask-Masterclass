@@ -19,14 +19,14 @@ def users():
     flash("Users routes")
     users = [{
         "name": "Lucas Silva",
-        "idade": 99,
+        "age": 99,
         "email": "lucas@teste.com.br",
         "active": True,
         "since" : datetime.utcnow()
     },
     {
         "name": "Amanda Gomes",
-        "idade": 17,
+        "age": 17,
         "email": "manda@teste.com.br",
         "active": False,
         "since" : datetime.utcnow()
