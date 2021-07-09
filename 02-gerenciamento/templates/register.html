@@ -1,6 +1,24 @@
-<form action="{{url_for('register')}}" method="POST">
-    <input type="text" name="name" placeholder="Insira seu nome:">
-    <input type="email" name="email" placeholder="Insira seu email:">
-    <input type="password" name="password" placeholder="Insira sua senha:">
-    <input type="submit" value="Cadastrar">
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{{url_for('register')}}" method="POST">
+        <div class="mb-3">
+        <label for="name" class="form-label">Insira o seu nome completo:</label>
+        <input type="text" class="form-control" id="name" name="name">   
+        </div>
+        
+        <div class="mb-3">
+            <label for="email" class="form-label">Insira seu email:</label>
+            <input type="email" class = "form-control" id = "email" name="email" >
+            <div id="emailHelp" class="form-text">Não dividiremos nunca o seu email com terceiros.</div>
+        </div>
+        <div class="mb-3">
+        <label for="password" class="form-label">Insira sua senha:</label>
+        <input type="password" class="form-control" id="password" name="password">
+        </div>
+        
+        <button type="submit" class="btn btn-success btn-block btn-lg">Cadastrar</button>
+    </form>
+{%endblock%}
+
+ 

@@ -1,8 +1,36 @@
-<h1>{{user.id}}</h1>
-<h1>{{user.name}}</h1>
-<h1>{{user.email}}</h1>
-<h1>{{user.password}}</h1>
-<h1>{{user.profile.photo}}</h1>
+{%extends 'base.html'%}
+
+{%block content%}
+
+<div class="mt-5">
+    <a href="{{url_for('index')}}" class="btn btn-outline-info"><i class="fas fa-arrow-left"></i>  Voltar</a>
+
+    <table class="table - table-striped mt-3">
+        <tbody>
+            <tr>
+                <td>
+                    {{user.id}}
+                </td>
+                <td>
+                    {{user.name}}
+                </td>
+                <td>
+                    {{user.email}}
+                </td>
+                <td>
+                    {{user.password}}
+                </td>
+                <td>
+                    {{user.profile.photo}}
+                </td>
+                <td>
+                    <a class = "btn btn-danger btn-sm"href="{{url_for('delete',id=user.id)}}"><i class="far fa-trash-alt"></i></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
-<a href="{{url_for('delete',id=user.id)}}">Deletar</a>
+
+{%endblock%}
