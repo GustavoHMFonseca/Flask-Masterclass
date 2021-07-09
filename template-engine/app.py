@@ -5,7 +5,12 @@ app = Flask(__name__,template_folder="tema")
 
 @app.route("/templates")
 def templates():
-    return render_template("index.html")
+    user = {
+        "name": "Lucas Silva",
+        "idade": 99,
+        "email": "lucas@teste.com.br"
+    }
+    return render_template("index.html",user=user)
 
 if __name__ == "__main__":
     app.run(debug=True)
