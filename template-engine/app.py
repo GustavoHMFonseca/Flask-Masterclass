@@ -1,7 +1,8 @@
 from logging import debug
-from flask import Flask, render_template
+from flask import Flask, render_template,flash
 
 app = Flask(__name__,template_folder="tema")
+app.config["SECRET_KEY"] = "secret"
 
 @app.route("/templates")
 def templates():
@@ -10,6 +11,8 @@ def templates():
         "idade": 99,
         "email": "lucas@teste.com.br"
     }
+
+    flash("Usuário criado com sucesso!")
     return render_template("index.html",users=users)
 
 if __name__ == "__main__":

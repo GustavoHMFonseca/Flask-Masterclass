@@ -7,8 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    {% for user in users.items() %}
-        <h1>{{user}}</h1>
+    {% for k,v in users.items() %}
+        <h1>{{k}} => {{v}}</h1>
     {% endfor%}
 </body>
 </html>
