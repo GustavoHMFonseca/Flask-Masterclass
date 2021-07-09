@@ -1,7 +1,7 @@
 from logging import debug
 from flask import Flask, render_template,flash
 
-app = Flask(__name__,template_folder="tema")
+app = Flask(__name__,template_folder="tema",static_folder="public")
 app.config["SECRET_KEY"] = "secret"
 
 @app.route("/templates")
