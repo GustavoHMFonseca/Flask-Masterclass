@@ -4,21 +4,12 @@
     Usuários
 {%endblock%}
 
+{%from 'components/user.html' import user_component %}
+
 {%block conteudo%}
     
      {%include 'components/notification.html'%}
      {{users|length}}
-     {% for user in users %}
-        {%set name = user['name']%}
-        {%set age = user['age']%}
-        {%set email = user['email']%}
-        {%set since = user['since']%}
-        <ul class="list-group list-group-flush mb-5">
-            <li class="list-group-item {{'bg-success' if user['active'] else 'bg-danger'}}">{{name|title}}</li>
-            <li class="list-group-item">{{age}}</li>
-            <li class="list-group-item">{{email}}</li>
-            <li class="list-group-item">{{since| formatdate}}</li>
-        </ul>
-        
-    {% endfor%}
+     {{ user_component(users) }}
+     
 {% endblock %}
