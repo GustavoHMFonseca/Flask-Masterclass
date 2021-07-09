@@ -2,13 +2,6 @@
 
 {%block conteudo%}
     {%include 'components/notification.html'%}
-    <a href="{{ url_for('users') }}" class="lead">Usuarios</a>
-
-    {% for k,v in users.items() %}
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{k}} => {{v}}</li>
-        </ul>
-        
-    {% endfor%}
+    <a href="{{ url_for('users') }}" class="lead">Usuarios</a>   
 {%endblock%}
 

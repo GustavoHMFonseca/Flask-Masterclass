@@ -6,21 +6,31 @@ app.config["SECRET_KEY"] = "secret"
 
 @app.route("/templates")
 def templates():
-    users = {
-        "name": "Lucas Silva",
-        "idade": 99,
-        "email": "lucas@teste.com.br"
-    }
+    
 
     flash("Usuário criado com sucesso!")
     flash("passei por aqui.")
 
-    return render_template("index.html",users=users)
+    return render_template("index.html")
 
 @app.route("/usuarios")
 def users():
     flash("Users routes")
-    return render_template("users.html")
+    users = [{
+        "name": "Lucas Silva",
+        "idade": 99,
+        "email": "lucas@teste.com.br",
+        "active": True
+    },
+    {
+        "name": "Amanda Gomes",
+        "idade": 17,
+        "email": "manda@teste.com.br",
+        "active": False
+    },
+    
+    ]
+    return render_template("users.html",users=users)
 
 if __name__ == "__main__":
     app.run(debug=True)
