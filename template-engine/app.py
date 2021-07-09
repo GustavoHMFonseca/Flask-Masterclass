@@ -1,7 +1,7 @@
 from logging import debug
 from flask import Flask, render_template
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder="tema")
 
 @app.route("/templates")
 def templates():
