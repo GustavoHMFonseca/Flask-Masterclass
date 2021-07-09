@@ -1,5 +1,10 @@
 {%extends "base.html"%}
 
+{%block subtitle%}
+    Index
+{%endblock%}
+
+
 {%block conteudo%}
     {%include 'components/notification.html'%}
     <a href="{{ url_for('users') }}" class="lead">Usuarios</a>   
