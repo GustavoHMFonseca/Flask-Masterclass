@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from flask_wtf.recaptcha import validators
 from wtforms.fields.html5 import EmailField
-from wtforms.fields import StringField,PasswordField, BooleanField, SubmitField
+from wtforms.fields import StringField,PasswordField, BooleanField, SubmitField, SelectField
 from wtforms.validators import Length, Email, DataRequired
-
+from app.models import Book
 
 class LoginForm(FlaskForm):
     email = EmailField("Email", validators=[Email()])
@@ -22,3 +22,12 @@ class BookForm(FlaskForm):
         DataRequired("O campo é obrigatório")
         ])
     submit = SubmitField("Cadastrar")
+
+class UserBookForm(FlaskForm):
+    book = SelectField("Livro",coerce = int)
+    submit = SubmitField("Cadastrar")
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.book.choices = [
+            (book.id, book.name) for book in Book.query.all()
+        ]
