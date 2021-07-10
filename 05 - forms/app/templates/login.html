@@ -14,6 +14,7 @@
     {{form.errors}}  
 
     <form action="{{url_for('login')}}" method="POST">        
+        {{form.csrf_token}}
         <div class="mb-3">
             <label for="email" class="form-label">Insira seu email:</label>
             {{form.email(class_="form-control")}}        

@@ -49,22 +49,19 @@ def init_app(app):
     @app.route("/login", methods=["GET","POST"])
     def login():
         form = LoginForm()
-        if form.validate_on_submit():
-            email = request.form["email"]
-            password = request.form["password"]
-            remember = request.form["remember"]
-            user = User.query.filter_by(email=email).first()
+        if form.validate_on_submit():           
+            user = User.query.filter_by(email=form.email.data).first()
         
             
             if not user:
                 flash("Usuário incorreto")
                 return redirect(url_for("login"))
 
-            if not check_password_hash(user.password, password):
+            if not check_password_hash(user.password, form.password.data):
                 flash("Senha incorreta")
                 return redirect(url_for("login"))
 
-            login_user(user,remember = remember, duration=timedelta(days=7))
+            login_user(user,remember = form.remember.data, duration=timedelta(days=7))
             return redirect(url_for("index"))
 
         return render_template("login.html", form=form)
