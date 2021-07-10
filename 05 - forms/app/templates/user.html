@@ -29,6 +29,15 @@
             </tr>
         </tbody>
     </table>
+
+    <h3 class="text-muted">Books:</h3>
+    <ul class="list-group list-group-flush mt-5">
+        {%for book in user.books %}  
+        <li class="list-group-item">
+            {{book.name}}
+        </li>
+        {%endfor%}
+    </ul>
 </div>
 
 
