@@ -6,7 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db
 from app.models import User
-from app.forms import LoginForm
+from app.forms import LoginForm, RegisterForm
 
 
 def init_app(app):
@@ -30,19 +30,19 @@ def init_app(app):
         return redirect("/")
     @app.route("/register", methods=["GET","POST"])
     def register():
-        if request.method == "POST":
+        form = RegisterForm()
+
+        if form.validate_on_submit():       
             user = User()
-            user.name = request.form["name"]
-            user.email = request.form["email"]
-            user.password = generate_password_hash(request.form["password"])
+            user.name = form.name.data
+            user.email = form.email.data
+            user.password = generate_password_hash(form.password.data)
 
             db.session.add(user)
             db.session.commit()
             return redirect(url_for("index"))
-        
-        else:
-            with app.app_config():
-                return render_template("register.html")
+            
+        return render_template("register.html", form=form)
 
    
 
@@ -54,11 +54,11 @@ def init_app(app):
         
             
             if not user:
-                flash("Usuário incorreto")
+                flash("Usuário incorreto","danger")
                 return redirect(url_for("login"))
 
             if not check_password_hash(user.password, form.password.data):
-                flash("Senha incorreta")
+                flash("Senha incorreta","danger")
                 return redirect(url_for("login"))
 
             login_user(user,remember = form.remember.data, duration=timedelta(days=7))
