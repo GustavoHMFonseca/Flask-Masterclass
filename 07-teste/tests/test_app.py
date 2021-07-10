@@ -1,7 +1,9 @@
-def calc(a,b):
-    return a + b
+import pytest
 
-def teste_calc():
-    c = calc(1,2)
+@pytest.fixture
+def cliente():
+    return "ACESSANDO A PÁGINA INDEX.HTML"
 
-    assert c == 3
+
+def test_client(cliente):
+    assert cliente == "ACESSANDO A PÁGINA INDEX.HTMLS"
