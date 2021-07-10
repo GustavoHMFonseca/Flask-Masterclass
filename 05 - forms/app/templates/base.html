@@ -20,8 +20,8 @@
             {% block content%}{%endblock%}
         </div> 
         
-        {%block scripts%}
-          {{bootstrap.load_js()}}
-        {%endblock%}
+        {% block scripts %}
+          {{ bootstrap.load_js() }}
+        {% endblock %}
   </body>
 </html>
