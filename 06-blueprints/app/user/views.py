@@ -1,7 +1,6 @@
 from . import user
-from datetime import timedelta
 
-from flask import  redirect, render_template, 
+from flask import  redirect, render_template, url_for
 from flask_login import login_required
 
 
@@ -25,4 +24,4 @@ def delete(id):
     db.session.delete(user)
     db.session.commit()
 
-    return redirect("/")
+    return redirect(url_for(".index"))

@@ -22,7 +22,7 @@ def register():
 
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for(".index"))
+        return redirect(url_for("user.index"))
         
     return render_template("register.html", form=form)
 
@@ -37,14 +37,14 @@ def login():
         
         if not user:
             flash("Usuário incorreto","danger")
-            return redirect(url_for(".login"))
+            return redirect(url_for("login"))
 
         if not check_password_hash(user.password, form.password.data):
             flash("Senha incorreta","danger")
             return redirect(url_for("login"))
 
         login_user(user,remember = form.remember.data, duration=timedelta(days=7))
-        return redirect(url_for("index"))
+        return redirect(url_for("user.index"))
 
     return render_template("login.html", form=form)
 
@@ -52,4 +52,4 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("index"))
+    return redirect(url_for("user.index"))
