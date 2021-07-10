@@ -3,7 +3,7 @@
 {%block content%}
 
 <div class="mt-5">
-    <a href="{{url_for('index')}}" class="btn btn-outline-info"><i class="fas fa-arrow-left"></i>  Voltar</a>
+    <a href="{{url_for('user.index')}}" class="btn btn-outline-info"><i class="fas fa-arrow-left"></i>  Voltar</a>
     <a href="{{url_for('book.user_add_book', id=user.id)}}" class="btn btn-outline-success"><i class="fas fa-plus"></i>  Adicionar Livro</a>
 
     <table class="table - table-striped mt-3">
@@ -25,7 +25,7 @@
                     {{user.profile.photo}}
                 </td>
                 <td>
-                    <a class = "btn btn-danger btn-sm"href="{{url_for('delete',id=user.id)}}"><i class="far fa-trash-alt"></i></i></a>
+                    <a class = "btn btn-danger btn-sm"href="{{url_for('user.delete',id=user.id)}}"><i class="far fa-trash-alt"></i></i></a>
                 </td>
             </tr>
         </tbody>
