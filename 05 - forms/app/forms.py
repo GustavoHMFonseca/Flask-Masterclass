@@ -16,3 +16,9 @@ class RegisterForm(FlaskForm):
     email = EmailField("Email", validators=[Email()])
     password = PasswordField("senha", validators=[Length(3,6,"Sua senha deve conter de 3 a 6 cxaracteres.")])    
     submit = SubmitField("Cadastrar")
+
+class BookForm(FlaskForm):
+    name = StringField("Nome do livro",validators=[
+        DataRequired("O campo é obrigatório")
+        ])
+    submit = SubmitField("Cadastrar")
