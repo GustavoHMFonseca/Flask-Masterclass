@@ -1,9 +1,14 @@
-from . import auth
-from flask_login import login_required, login_user, logout_user, current_user
-from flask import flash, redirect, render_template, url_for
-from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import timedelta
+
+from app.forms import LoginForm, RegisterForm
+from app import db
 from app.models import User
-from app.forms import LoginForm, RegisterForm, BookForm, UserBookForm
+from flask import flash, redirect, render_template, url_for
+from flask_login import login_required, login_user, logout_user
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from . import auth
+
 
 @auth.route("/register", methods=["GET","POST"])
 def register():
@@ -17,7 +22,7 @@ def register():
 
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for("index"))
+        return redirect(url_for(".index"))
         
     return render_template("register.html", form=form)
 
@@ -32,7 +37,7 @@ def login():
         
         if not user:
             flash("Usuário incorreto","danger")
-            return redirect(url_for("login"))
+            return redirect(url_for(".login"))
 
         if not check_password_hash(user.password, form.password.data):
             flash("Senha incorreta","danger")
