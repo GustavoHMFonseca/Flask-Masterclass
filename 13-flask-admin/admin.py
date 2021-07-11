@@ -3,12 +3,12 @@ from flask_admin.contrib.sqla import ModelView
 from wtforms.fields import PasswordField
 from werkzeug.security import generate_password_hash
 
-from models import User
+from models import User,Task
 from app import db
 
 class UserView(ModelView):
-    column_editable_list = ("name","email")
-    form_edit_rules={"name","email"}
+    column_editable_list = ("name","email","tasks")
+    form_edit_rules={"name","email","tasks"}
     column_searchable_list = ["email"]
     edit_modal=True
 
@@ -24,3 +24,4 @@ class UserView(ModelView):
 
 def init_app(admin):
     admin.add_view(UserView(User, db.session))
+    admin.add_view(ModelView(Task,db.session))
