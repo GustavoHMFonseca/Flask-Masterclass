@@ -15,6 +15,9 @@ class UserView(ModelView):
     form_extra_fields={
         "password": PasswordField("Password")
     }
+
+    column_filters = ['name']
+
     column_exclude_list = ["password"]
 
     def on_model_change(self, form, model, is_created):
