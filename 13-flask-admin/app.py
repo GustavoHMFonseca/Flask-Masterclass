@@ -1,23 +1,26 @@
+import os
+
 from flask import Flask
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config["FLASK_ADMIN_SWATCH"] = "cosmo" 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///dev.sqlite"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db = SQLAlchemy()
+def create_app():
+    app = Flask(__name__)
+    app.config["FLASK_ADMIN_SWATCH"] = "cosmo" 
+    app.config["SECRET_KEY"] = "SECRET"
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URI"]
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = os.environ['DATABASE_TRACK_MODIFICATIONS']
 
 
-admin = Admin(app, name="SpaceDevs", template_mode="bootstrap3")
-db = SQLAlchemy(app)
+    admin = Admin(app, name="SpaceDevs", template_mode="bootstrap3")
+    db.init_app(app)
 
 
-from models import User
+    from models import User
 
-class UserView(ModelView):
-    pass
+    admin.add_view(ModelView(User, db.session))
 
-admin.add_view(UserView(User, db.session))
+    return app
 
-app.run(debug=True)
