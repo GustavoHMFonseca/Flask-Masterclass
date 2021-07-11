@@ -1,5 +1,5 @@
 from logging import debug
-from flask import Flask
+from flask import Flask,render_template
 from flask_mail import Mail, Message
 
 config ={
@@ -19,7 +19,7 @@ mail = Mail(app)
 
 @app.route("/sendmail")
 def sendmail():
-    msg = Message(subject="Bem-vindo(a)", sender=app.config["MAIL_DEFAULT_SENDER"], recipients=["amanda@teste.com.br"],body="Apenas mais um e-mail enviado de um smtp faker.")
+    msg = Message(subject="Bem-vindo(a)", sender=app.config["MAIL_DEFAULT_SENDER"], recipients=["amanda@teste.com.br"],html=render_template("mail/welcome.html",name= "Teste") )
     mail.send(msg)
 
     return "Email enviado com sucesso!"
