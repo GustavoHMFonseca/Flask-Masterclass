@@ -15,6 +15,11 @@ class UserView(ModelView):
     form_extra_fields={
         "password": PasswordField("Password")
     }
+    column_exclude_list = ["password"]
+
+    def on_model_change(self, form, model, is_created):
+        model.password = generate_password_hash(form.password.data)
+        return super().on_model_change(form, model, is_created)
     
 
 def init_app(admin):
