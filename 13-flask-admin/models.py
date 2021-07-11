@@ -22,7 +22,7 @@ class Profile(db.Model):
     cpf = db.Column(db.String(20),nullable=False, unique=True, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     def __repr__(self):
-        return self.user.name
+        return self.cpf
 
 class Task(db.Model):
     __tablename__ = "tasks"

@@ -1,6 +1,6 @@
 from re import search
 from flask_admin.contrib.sqla import ModelView
-from wtforms.fields import PasswordField
+from wtforms.fields import PasswordField,StringField
 from werkzeug.security import generate_password_hash
 
 from models import User,Task, Profile
@@ -13,18 +13,21 @@ class UserView(ModelView):
     edit_modal=True
 
     form_extra_fields={
-        "password": PasswordField("Password")
+        "password": PasswordField("Password"),        
     }
 
     inline_models = [Profile]
 
-    column_filters = ['name']
+    column_filters = ['name',"profiles"]
 
     column_exclude_list = ["password"]
+    column_list = ['name', "email", "profiles"]
 
     def on_model_change(self, form, model, is_created):
-        model.password = generate_password_hash(form.password.data)
-        return super().on_model_change(form, model, is_created)
+        if is_created:
+            model.password = generate_password_hash(form.password.data)
+            return super().on_model_change(form, model, is_created)
+        
     
 
 def init_app(admin):
