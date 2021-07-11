@@ -8,6 +8,7 @@ def cliente():
     app = create_app()
     app.config["TESTING"] = True
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///"
+    app.config["WTF_CSRF_ENABLED"] = False
 
     context = app.app_context()
     context.push()
@@ -44,3 +45,14 @@ def test_registrando_usuario(cliente):
     }
     response = cliente.post("/register", data=data, follow_redirects = True)
     assert "Amanda" in response.get_data(as_text=True)
+
+def test_logando_usuario(cliente):
+    data ={
+        "name": "Amanda",
+        "email": "amanda@teste.com.br",
+        "password":"1234"
+    }
+    response = cliente.post("/register", data=data, follow_redirects = True)
+    
+    response2 = cliente.post("/login", data=data, follow_redirects=True)
+    assert "Sair" in response2.get_data(as_text=True)
