@@ -1,7 +1,8 @@
-from re import search
 from flask_admin.contrib.sqla import ModelView
-from wtforms.fields import PasswordField,StringField
+from flask import redirect
+from wtforms.fields import PasswordField
 from werkzeug.security import generate_password_hash
+from flask_login import current_user
 
 from models import User,Task, Profile
 from app import db
@@ -27,7 +28,12 @@ class UserView(ModelView):
         if is_created:
             model.password = generate_password_hash(form.password.data)
             return super().on_model_change(form, model, is_created)
-        
+    
+    def is_accessible(self):
+        return current_user.is_authenticated
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect("/login")
     
 
 def init_app(admin):

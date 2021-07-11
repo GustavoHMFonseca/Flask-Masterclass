@@ -1,8 +1,8 @@
 from operator import index
-from re import T
-from app import db
+from app import db, login_manager
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
