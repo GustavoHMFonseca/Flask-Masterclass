@@ -3,18 +3,20 @@ from flask_admin.contrib.sqla import ModelView
 from wtforms.fields import PasswordField
 from werkzeug.security import generate_password_hash
 
-from models import User,Task
+from models import User,Task, Profile
 from app import db
 
 class UserView(ModelView):
-    column_editable_list = ("name","email","tasks")
-    form_edit_rules={"name","email","tasks"}
+    column_editable_list = ("name","email","tasks", "profiles")
+    form_edit_rules={"name","email","tasks", "profiles"}
     column_searchable_list = ["email"]
     edit_modal=True
 
     form_extra_fields={
         "password": PasswordField("Password")
     }
+
+    inline_models = [Profile]
 
     column_filters = ['name']
 
