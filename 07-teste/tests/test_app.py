@@ -19,3 +19,11 @@ def cliente():
 def test_se_a_pagina_de_usuarios_retorna_status_code_200(cliente):
    response = cliente.get("/")
    assert response.status_code == 200
+
+def test_se_o_link_de_registrar_existe(cliente):
+    response = cliente.get("/")
+    assert "Registrar" in response.get_data(as_text = True)
+
+def test_se_o_link_de_login_existe(cliente):
+    response = cliente.get("/")
+    assert "Login" in response.get_data(as_text = True)
