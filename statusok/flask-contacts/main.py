@@ -1,15 +1,13 @@
-from flask_restful import Api
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from config import config
+from app import create_app, db
+
+app = create_app("development")
 
 
-db = SQLAlchemy()
+@app.shell_context_processor
+def shell_context():
+    return dict(
+        app = app,
+        db = db
+    )
 
-
-def create_app(config_name):
-    app = Flask(__name__)
-    app.config.from_object(config[config_name])
-
-    api = Api(app)
-    db.init_app(app)
+    
