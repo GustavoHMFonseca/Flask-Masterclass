@@ -22,12 +22,12 @@ class Login(Resource):
 
         data ={
             "id": user.id,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=24)
         }
 
         token = jwt.encode(data, current_app.config["SECRET_KEY"], algorithm="HS256")
 
-        return{"acess_token": jwt.decode(token, current_app.config["SECRET_KEY"], algorithms="HS256")}
+        return{"acess_token": token}
 
 class Register(Resource):
     def post(self):

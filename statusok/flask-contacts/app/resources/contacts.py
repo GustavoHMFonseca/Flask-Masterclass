@@ -2,13 +2,16 @@ from flask_restful import Resource, marshal
 from app.models import Contact
 from app import request,db
 from app.schemas import contact_field
+from app.decorator import jwt_required
 
 class Contacts(Resource):
-    def get(self):
+    @jwt_required
+    def get(self, current_user):
         contact = Contact.query.all()
         return marshal(contact, contact_field, "contacts")
     
-    def post(self):
+    @jwt_required
+    def post(self, current_user):
         payload = request.only(["name", "cellphone"])
 
         name = payload["name"]
@@ -21,7 +24,8 @@ class Contacts(Resource):
 
         return marshal(contact, contact_field, "contact")
 
-    def put(self):
+    @jwt_required
+    def put(self, current_user):
         payload = request.only(["id","name", "cellphone"])
 
         name = payload["name"]
@@ -40,8 +44,8 @@ class Contacts(Resource):
         db.session.commit()
 
         return marshal(contact,contact_field,"contact")
-
-    def delete(self):
+    @jwt_required
+    def delete(self, current_user):
         payload = request.only(['id'])
         _id = payload["id"]
 
