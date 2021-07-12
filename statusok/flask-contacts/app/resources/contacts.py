@@ -24,6 +24,23 @@ class Contacts(Resource):
     def put(self):
         payload = request.only(["id","name", "cellphone"])
 
+        name = payload["name"]
+        cellphone = payload["cellphone"]
+        _id = payload["id"]
+
+        contact = Contact.query.get(_id)
+
+        if not contact:
+            return {"message": "Contato que você está tentando deletar ele não existe!"}
+
+        contact.name = name
+        contact.cellphone = cellphone
+
+        db.session.add(contact)
+        db.session.commit()
+
+        return marshal(contact,contact_field,"contact")
+
     def delete(self):
         payload = request.only(['id'])
         _id = payload["id"]
