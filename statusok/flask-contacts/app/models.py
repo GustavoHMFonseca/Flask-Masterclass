@@ -25,7 +25,7 @@ class Contact(db.Model):
     __tablename__ = "contacts"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user = db.Column(db.String(35), nullable=False)
+    name = db.Column(db.String(35), nullable=False)
     cellphone = db.Column(db.String(15),nullable=False,unique = True)
 
     def __init__(self, name,cellphone):
