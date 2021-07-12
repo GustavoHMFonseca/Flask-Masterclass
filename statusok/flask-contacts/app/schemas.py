@@ -5,3 +5,9 @@ contact_field ={
     "name": fields.String,
     "cellphone": fields.String
 }
+
+user_field ={
+    "id": fields.Integer,
+    "username": fields.String    
+}
+
