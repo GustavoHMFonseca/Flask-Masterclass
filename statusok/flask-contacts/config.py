@@ -1,6 +1,6 @@
 class Config:
     SECRET_KEY = "SECRET"
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgre:admin@localhost/flask_contacts"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///contacts.db"
     SQLALCHEMY_TRACK_MODIFICATION = False
 
 class Development(Config):
